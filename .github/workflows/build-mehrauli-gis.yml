@@ -17,11 +17,16 @@ jobs:
           python-version: '3.12'
       - name: Install GIS dependencies
         run: pip install -r gis_basemap/requirements.txt
-      - name: Build GeoJSON layers
+      - name: Build detailed urban-planning GIS layers
         run: python gis_basemap/build_mehrauli_basemap.py
-      - name: Upload GIS basemap
+      - name: Upload complete QGIS package
         uses: actions/upload-artifact@v4
         with:
-          name: mehrauli-gis-basemap
-          path: data/*.geojson
+          name: mehrauli-qgis-urban-planning-base
+          path: |
+            data/mehrauli_urban_planning.gpkg
+            data/*.geojson
+            data/*.csv
+            data/*.md
+            data/projected/*.gpkg
           if-no-files-found: error
