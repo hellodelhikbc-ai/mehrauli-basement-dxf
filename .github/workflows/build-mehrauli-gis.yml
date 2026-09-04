@@ -1,0 +1,27 @@
+name: Build Mehrauli GIS Basemap
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'gis_basemap/**'
+      - '.github/workflows/build-mehrauli-gis.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install GIS dependencies
+        run: pip install -r gis_basemap/requirements.txt
+      - name: Build GeoJSON layers
+        run: python gis_basemap/build_mehrauli_basemap.py
+      - name: Upload GIS basemap
+        uses: actions/upload-artifact@v4
+        with:
+          name: mehrauli-gis-basemap
+          path: data/*.geojson
+          if-no-files-found: error
