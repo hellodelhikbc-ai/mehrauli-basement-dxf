@@ -1,28 +1,41 @@
-# mehrauli-basement-dxf
+# Mehrauli Delhi — GIS Basemap + CAD Base
 
-Repository for generating a Mehrauli Google Earth basemap / DXF using Python + ezdxf.
+This repository contains a reproducible GIS basemap workflow for Mehrauli, Delhi and the earlier CAD/DXF base.
 
-## Current source
-The current drawing is based **only on the user-supplied Google Earth PDF**. The PDF contains Google Earth satellite imagery and an 8.34 m map measurement; it does **not** visibly contain a Ward 155 boundary. Therefore this repository does not fabricate or import a ward boundary from another source.
+## GIS basemap
+The `gis_basemap/` workflow builds editable GIS layers from OpenStreetMap data:
 
-## DXF
-`MEHRAULI_WARD_155_GOOGLE_EARTH_BASEMAP.dxf`
+- Mehrauli boundary / study polygon
+- Building footprints
+- Road centre-lines with available road attributes
+- Land-use polygons
+- Waterways
+- Green/open-space features
+- Points of interest / landmarks
 
-The DXF is an unreferenced image-space template with CAD layers prepared for:
-- WARD_155_BOUNDARY
-- BUILDING_FOOTPRINT
-- ROAD_PRIMARY
-- ROAD_SECONDARY
-- ROAD_LOCAL
-- LANE
-- OPEN_SPACE
-- WATER
-- VEGETATION
-- LANDMARK
-- TEXT_LABEL
+Exports are GeoJSON in **EPSG:4326**, suitable for QGIS, ArcGIS Pro and further CAD/GIS conversion.
 
-## Required for a true Ward 155-only basemap
-Provide a Google Earth screenshot/PDF in which the Ward 155 boundary is visible or drawn. The boundary can then be traced and the basemap clipped to that boundary while continuing to use Google Earth imagery only.
+### Build automatically
+GitHub Actions workflow:
+`.github/workflows/build-mehrauli-gis.yml`
 
-## Accuracy
-This is not survey/cadastral control. The supplied PDF does not provide a complete georeferencing control set, so the current DXF uses image-space coordinates.
+It installs the GIS dependencies, downloads the current OpenStreetMap features through OSMnx/Overpass, generates the GeoJSON layers, and publishes them as a workflow artifact named `mehrauli-gis-basemap`.
+
+## Important accuracy note
+This GIS base is an **OpenStreetMap planning base**, not a cadastral or survey-accurate municipal base. OSM completeness varies by feature and location. Do not treat building footprints or road edges as legal property boundaries.
+
+The existing `MEHRAULI_WARD_155_GOOGLE_EARTH_BASEMAP.dxf` remains an image-space CAD template based on the user-supplied Google Earth PDF; it should not be represented as a georeferenced Ward 155 survey.
+
+## Suggested QGIS layer order
+1. Boundary
+2. Water
+3. Green / open space
+4. Land use
+5. Roads
+6. Buildings
+7. POIs / landmarks
+
+## Files
+- `gis_basemap/build_mehrauli_basemap.py` — GIS extraction/build script
+- `gis_basemap/requirements.txt` — Python GIS dependencies
+- `.github/workflows/build-mehrauli-gis.yml` — automated build
