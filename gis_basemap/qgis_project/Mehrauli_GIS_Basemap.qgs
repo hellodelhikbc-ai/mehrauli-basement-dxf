@@ -1,0 +1,16 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis projectname="Mehrauli_GIS_Basemap" version="3.34">
+  <homePath path=""/>
+  <title>Mehrauli Delhi GIS Basemap</title>
+  <projectCrs><spatialrefsys><authid>EPSG:32643</authid><description>WGS 84 / UTM zone 43N</description><projectionacronym>utm</projectionacronym><ellipsoidacronym>WGS84</ellipsoidacronym></spatialrefsys></projectCrs>
+  <layer-tree-group name="MEHRAULI GIS BASEMAP" expanded="1">
+    <layer-tree-group name="01_BOUNDARY" expanded="1"/>
+    <layer-tree-group name="02_WATER" expanded="1"/>
+    <layer-tree-group name="03_GREEN_OPEN_SPACE" expanded="1"/>
+    <layer-tree-group name="04_LANDUSE" expanded="1"/>
+    <layer-tree-group name="05_ROADS" expanded="1"/>
+    <layer-tree-group name="06_BUILDINGS" expanded="1"/>
+    <layer-tree-group name="07_POI_LANDMARKS" expanded="1"/>
+  </layer-tree-group>
+  <mapViewDocks/>
+</qgis>
